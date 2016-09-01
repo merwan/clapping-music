@@ -1,5 +1,7 @@
 window.addEventListener('load', function() {
   var context = new AudioContext();
+  var compressor = context.createDynamicsCompressor();
+  compressor.connect(context.destination);
 
   function loadSample(sample) {
     var request  = new XMLHttpRequest();
@@ -24,7 +26,7 @@ window.addEventListener('load', function() {
   function playBuffer(buffer) {
     source = context.createBufferSource();
     source.buffer = buffer;
-    source.connect(context.destination);
+    source.connect(compressor);
     source.start(0);
   }
 
